@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .btn {
+        @apply px-8 py-2 bg-blue-500 text-neutral-100;
+    }
+}

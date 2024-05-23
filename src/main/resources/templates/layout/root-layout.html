@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE"></title>
+    <!-- tailwind css -->
+    <link rel="stylesheet" th:href="@{/css/output.css}" />
+</head>
+<body>
+<header th:replace="layout/navbar :: navbar"></header>
+<div layout:fragment="content">
+    Replace content...
+</div>
+</body>
+</html>

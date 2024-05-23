@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layout/root-layout}">
+<head>
+    <title>Products</title>
+</head>
+<body layout:fragment="content">
+    <h1>Products</h1>
+    <form th:action="@{/products/search}" method="get">
+        <label>
+            <input type="text" name="keyword" placeholder="Search products..." />
+        </label>
+        <button type="submit" class="btn">Search</button>
+    </form>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.description}"></td>
+            <td th:text="${product.price}"></td>
+            <td>
+                <a th:href="@{/products/{id}/details(id=${product.productId})}">View Details</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/}">Back to Home</a>
+</body>
+</html>
