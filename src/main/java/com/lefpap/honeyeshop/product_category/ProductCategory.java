@@ -1,10 +1,17 @@
-package com.lefpap.honeyeshop.product;
+package com.lefpap.honeyeshop.product_category;
 
 import jakarta.persistence.*;
-import jdk.jfr.Category;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Entity
+@Table(name = "product_categories")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProductCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,5 +20,5 @@ public class ProductCategory {
     private String name;
     @ManyToOne
     @JoinColumn(name = "parent_id")
-    private Category parentCategory;
+    private ProductCategory parentCategory;
 }
