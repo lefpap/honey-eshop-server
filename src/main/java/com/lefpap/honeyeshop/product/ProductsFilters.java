@@ -1,7 +1,8 @@
 package com.lefpap.honeyeshop.product;
 
+import com.lefpap.honeyeshop.product_category.ProductCategory;
+import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Predicate;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Positive;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -26,7 +27,8 @@ public record ProductsFilters(
             }
 
             if (this.category() != null && !this.category().isEmpty()) {
-                predicates.add(criteriaBuilder.equal(root.get("category"), this.category()));
+                Join<Product, ProductCategory> categoryJoin = root.join("category");
+                predicates.add(criteriaBuilder.equal(categoryJoin.get("name"), this.category()));
             }
 
             if (this.minPrice() != null) {

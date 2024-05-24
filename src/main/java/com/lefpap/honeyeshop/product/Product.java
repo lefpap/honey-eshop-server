@@ -1,14 +1,22 @@
 package com.lefpap.honeyeshop.product;
 
+import com.lefpap.honeyeshop.product_category.ProductCategory;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
+@Table(name = "products")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,17 +32,9 @@ public class Product {
     @Column(columnDefinition = "int default 0")
     @Min(value = 0, message = "Stock quantity must be no-negative")
     private Integer stock;
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private ProductCategory category;
     @Column
     private List<String> tags;
-    private Product() {}
-    public static Product of(String name, BigDecimal price, String description, String imageUrl, int stock) {
-        Product product = new Product();
-        product.setName(name);
-        product.setDescription(description);
-        product.setPrice(price);
-        product.setImageUrl(imageUrl);
-        product.setStock(stock);
-
-        return product;
-    }
 }
