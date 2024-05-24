@@ -6,7 +6,7 @@
     <link rel="stylesheet" th:href="@{/css/output.css}" />
 </head>
 <body>
-<header th:replace="layout/navbar :: navbar"></header>
+<header th:insert="~{layout/navbar :: navbar}"></header>
 <div layout:fragment="content">
     Replace content...
 </div>
