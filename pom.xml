@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.lefpap</groupId>
-	<artifactId>honey-eshop</artifactId>
+	<artifactId>honey-eshop-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>honey-eshop</name>
+	<name>honey-eshop-server</name>
 	<description>An eshop for Ikarian honey</description>
 	<properties>
 		<java.version>21</java.version>
