@@ -5,17 +5,14 @@ import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
-@RequestMapping("/products")
+@RestController
+@RequestMapping("api/v.1.0/products")
 public class ProductController {
     private final Logger LOG = LoggerFactory.getLogger(ProductController.class);
 
@@ -23,16 +20,16 @@ public class ProductController {
     private ProductDao productDao;
 
     @GetMapping
-    public String listProducts(@Valid @ModelAttribute ProductsFilters filters, Model model) {
+    @ResponseStatus(HttpStatus.OK)
+    public List<Product> queryProducts(@Valid @ModelAttribute ProductsFilters filters) {
         List<Product> products = productDao.findAll(filters.toSpecification());
-        model.addAttribute("products", products);
-        return "products/index";
+        return products;
     }
 
-    @GetMapping("/{id}/details")
-    public String viewProductDetails(@PathVariable(name = "id") Long productId, Model model) {
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Product getProduct(@PathVariable(name = "id") Long productId) {
         Product product = productDao.findById(productId).orElseThrow(EntityNotFoundException::new);
-        model.addAttribute("product", product);
-        return "products/details";
+        return product;
     }
 }

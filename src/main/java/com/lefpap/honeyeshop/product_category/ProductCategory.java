@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class ProductCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productCategoryId;
+    private Long id;
     @Column(nullable = false)
     private String name;
     @ManyToOne

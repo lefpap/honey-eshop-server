@@ -1,9 +1,0 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@layer components {
-    .btn {
-        @apply px-8 py-2 rounded-md bg-amber-500 text-neutral-100 font-medium;
-    }
-}
