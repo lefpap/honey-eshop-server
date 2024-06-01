@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import com.lefpap.honeyeshop.lib.ApiResponse;
+import com.lefpap.honeyeshop.lib.Metadata;
+
 import java.util.List;
 
 @RestController
@@ -20,19 +23,31 @@ public class ProductController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Product> queryProducts(@Valid @ModelAttribute ProductsFilters filters) {
+    public ApiResponse<List<Product>> queryProducts(@Valid @ModelAttribute ProductsFilters filters) {
         LOG.info("Querying products with filters: {}", filters);
         List<Product> products = productDao.findAll(filters.toSpecification());
         LOG.info("Found {} products", products.size());
-        return products;
+        
+        Metadata metadata = Metadata.create()
+            .addMeta("hello", "world")
+            .addMetaLink("firstItem", "/api/v.1.0/products/1")
+            .addMetaLink("lastItem", "/api/v.1.0/products/10")
+            .build();
+
+        return ApiResponse.success(products, "Products found", metadata);
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Product getProduct(@PathVariable(name = "id") Long productId) {
+    public ApiResponse<Product> getProduct(@PathVariable(name = "id") Long productId) {
         LOG.info("Getting product with id: {}", productId);
         Product product = productDao.findById(productId).orElseThrow(EntityNotFoundException::new);
         LOG.info("Found product: {}", product);
-        return product;
+        
+        Metadata metadata = Metadata.create()
+            .addMetaLink("self", "/api/v.1.0/products/" + productId)
+            .build();
+
+        return ApiResponse.success(product, "Product found", metadata);
     }
 }
