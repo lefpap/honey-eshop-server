@@ -1,4 +1,4 @@
-package com.lefpap.honeyeshop.lib;
+package com.lefpap.honeyeshop.lib.api;
 
 import org.springframework.data.domain.Page;
 
@@ -9,13 +9,13 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import lombok.Getter;
 
-@JsonSerialize(using = MetadataSerializer.class)
-public class Metadata {
+@JsonSerialize(using = ApiMetadataSerializer.class)
+public class ApiMetadata {
     
     @Getter
     private final ObjectNode root;
 
-    private Metadata(ObjectNode root) {
+    private ApiMetadata(ObjectNode root) {
         this.root = root;
     }
 
@@ -62,8 +62,8 @@ public class Metadata {
             return this;
         }
 
-        public Metadata build() {
-            return new Metadata(root);
+        public ApiMetadata build() {
+            return new ApiMetadata(root);
         }
     }
 

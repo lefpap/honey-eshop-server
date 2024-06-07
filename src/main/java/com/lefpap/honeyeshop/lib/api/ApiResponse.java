@@ -1,4 +1,4 @@
-package com.lefpap.honeyeshop.lib;
+package com.lefpap.honeyeshop.lib.api;
 
 import lombok.Data;
 
@@ -7,16 +7,16 @@ public class ApiResponse<T> {
     private final boolean success;
     private final T data;
     private final String message;
-    private final Metadata metadata;
+    private final ApiMetadata metadata;
 
-    private ApiResponse(boolean success, T data, String message, Metadata metadata) {
+    private ApiResponse(boolean success, T data, String message, ApiMetadata metadata) {
         this.success = success;
         this.data = data;
         this.message = message;
         this.metadata = metadata;
     }
 
-    public static <T> ApiResponse<T> success(T data, String message, Metadata metadata) {
+    public static <T> ApiResponse<T> success(T data, String message, ApiMetadata metadata) {
         return new ApiResponse<T>(true, data, message, metadata);
     }
 
@@ -24,7 +24,7 @@ public class ApiResponse<T> {
         return success(data, message, null);
     }
 
-    public static <T> ApiResponse<T> success(T data, Metadata metadata) {
+    public static <T> ApiResponse<T> success(T data, ApiMetadata metadata) {
         return success(data, null, metadata);
     }
 
@@ -32,7 +32,7 @@ public class ApiResponse<T> {
         return success(data, null, null);
     }
 
-    public static <T> ApiResponse<T> error(String message, Metadata metadata) {
+    public static <T> ApiResponse<T> error(String message, ApiMetadata metadata) {
         return new ApiResponse<T>(false, null, message, metadata);
     }
 

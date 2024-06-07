@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import com.lefpap.honeyeshop.lib.ApiResponse;
-import com.lefpap.honeyeshop.lib.Metadata;
+import com.lefpap.honeyeshop.lib.api.ApiMetadata;
+import com.lefpap.honeyeshop.lib.api.ApiResponse;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class ProductController {
         List<Product> products = productDao.findAll(filters.toSpecification());
         LOG.info("Found {} products", products.size());
         
-        Metadata metadata = Metadata.create()
+        ApiMetadata metadata = ApiMetadata.create()
             .addMeta("hello", "world")
             .addMetaLink("firstItem", "/api/v.1.0/products/1")
             .addMetaLink("lastItem", "/api/v.1.0/products/10")
@@ -44,7 +44,7 @@ public class ProductController {
         Product product = productDao.findById(productId).orElseThrow(EntityNotFoundException::new);
         LOG.info("Found product: {}", product);
         
-        Metadata metadata = Metadata.create()
+        ApiMetadata metadata = ApiMetadata.create()
             .addMetaLink("self", "/api/v.1.0/products/" + productId)
             .build();
 
